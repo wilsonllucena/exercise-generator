@@ -5,6 +5,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
+import ReactMarkdown from "react-markdown";
 import {
   Form,
   FormControl,
@@ -56,40 +57,66 @@ const ExerciseGenerator = () => {
       // Simulando chamada à API
       await new Promise((resolve) => setTimeout(resolve, 2000));
       
-      // Exemplo de exercício gerado em markdown
+      // Exemplo de exercício gerado em markdown com formatação mais rica
       const mockExercise = `# Lista de Exercícios - ${data.subject}
+
 ## ${data.grade}º Ano - ${data.questionType === "multiple" ? "Múltipla Escolha" : data.questionType === "written" ? "Dissertativa" : "Mista"}
 
-1. Qual é a capital do Brasil?
-   - a) São Paulo
-   - b) Rio de Janeiro
-   - c) Brasília
-   - d) Salvador
+### Instruções
+- Leia atentamente cada questão antes de responder
+- Utilize caneta azul ou preta
+- Não é permitido o uso de calculadora
 
-2. Quanto é 2 + 2?
-   - a) 3
-   - b) 4
-   - c) 5
-   - d) 6
+---
 
-3. Complete a frase: "O sol é uma..."
-   - a) Planeta
-   - b) Estrela
-   - c) Cometa
-   - d) Satélite
+1. **Qual é a capital do Brasil?**
+   
+   - [ ] a) São Paulo
+   - [ ] b) Rio de Janeiro
+   - [x] c) Brasília
+   - [ ] d) Salvador
 
-4. Resolva: 10 × 5 = ?
-   - a) 40
-   - b) 50
-   - c) 60
-   - d) 70
+   > **Dica:** É uma cidade planejada, inaugurada em 1960.
 
-5. Qual é o maior planeta do sistema solar?
-   - a) Terra
-   - b) Marte
-   - c) Júpiter
-   - d) Saturno
-`;
+2. **Quanto é 2 + 2?**
+   
+   - [ ] a) 3
+   - [x] b) 4
+   - [ ] c) 5
+   - [ ] d) 6
+
+   > **Explicação:** Esta é uma operação básica de adição.
+
+3. **Complete a frase: "O sol é uma..."**
+   
+   - [ ] a) Planeta
+   - [x] b) Estrela
+   - [ ] c) Cometa
+   - [ ] d) Satélite
+
+   > **Importante:** O Sol é a estrela central do nosso sistema solar.
+
+4. **Resolva: 10 × 5 = ?**
+   
+   - [ ] a) 40
+   - [x] b) 50
+   - [ ] c) 60
+   - [ ] d) 70
+
+   > **Método:** Multiplicação básica.
+
+5. **Qual é o maior planeta do sistema solar?**
+   
+   - [ ] a) Terra
+   - [ ] b) Marte
+   - [x] c) Júpiter
+   - [ ] d) Saturno
+
+   > **Fato:** Júpiter é 2,5 vezes mais massivo que todos os outros planetas juntos.
+
+---
+
+**Boa sorte!**`;
 
       setGeneratedExercise(mockExercise);
       toast({
@@ -303,11 +330,27 @@ const ExerciseGenerator = () => {
 
             <Separator className="my-4" />
 
-            <div className="prose prose-sm max-w-none">
+            <div className="prose prose-sm max-w-none dark:prose-invert">
               {generatedExercise ? (
-                <pre className="whitespace-pre-wrap font-mono text-sm bg-gray-50 p-4 rounded-lg">
-                  {generatedExercise}
-                </pre>
+                <div className="bg-gray-50 p-4 rounded-lg overflow-auto max-h-[calc(100vh-300px)]">
+                  <ReactMarkdown
+                    components={{
+                      h1: ({ ...props }) => <h1 className="text-2xl font-bold mb-4" {...props} />,
+                      h2: ({ ...props }) => <h2 className="text-xl font-semibold mb-3" {...props} />,
+                      h3: ({ ...props }) => <h3 className="text-lg font-medium mb-2" {...props} />,
+                      p: ({ ...props }) => <p className="mb-4" {...props} />,
+                      ul: ({ ...props }) => <ul className="list-disc pl-6 mb-4" {...props} />,
+                      ol: ({ ...props }) => <ol className="list-decimal pl-6 mb-4" {...props} />,
+                      li: ({ ...props }) => <li className="mb-1" {...props} />,
+                      blockquote: ({ ...props }) => (
+                        <blockquote className="border-l-4 border-gray-300 pl-4 italic text-gray-600 my-4" {...props} />
+                      ),
+                      hr: () => <hr className="my-6 border-t border-gray-200" />,
+                    }}
+                  >
+                    {generatedExercise}
+                  </ReactMarkdown>
+                </div>
               ) : (
                 <div className="text-center text-gray-500 py-12">
                   Os exercícios gerados aparecerão aqui
