@@ -6,6 +6,7 @@ import { toast } from "@/components/ui/use-toast";
 import { ExerciseForm, FormData } from "@/components/exercise-generator/ExerciseForm";
 import { ExercisePreview } from "@/components/exercise-generator/ExercisePreview";
 import { generateExercise } from "@/utils/exerciseGenerator";
+import api from "@/lib/api";
 
 const ExerciseGenerator = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,10 +17,20 @@ const ExerciseGenerator = () => {
     try {
       // Simulando chamada à API
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      
-      const exercise = generateExercise(data);
+
+      const response = await api.post("/chat", {
+        subject: data.subject,
+        grade: data.grade,
+        question_count: data.questionCount,
+        question_type: data.questionType,
+        additional_info: data.additionalInfo,
+      });
+
+
+      const { data: responseData } = response.data;
+      const exercise = generateExercise(responseData);
       setGeneratedExercise(exercise);
-      
+
       toast({
         title: "Exercícios gerados com sucesso!",
         description: "Seus exercícios estão prontos.",

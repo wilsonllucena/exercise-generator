@@ -24,7 +24,7 @@ import { toast } from "@/components/ui/use-toast";
 
 const loginSchema = z.object({
   email: z.string().email("Email inválido"),
-  password: z.string().min(6, "A senha deve ter no mínimo 6 caracteres"),
+  // password: z.string().min(6, "A senha deve ter no mínimo 6 caracteres"),
 });
 
 type LoginForm = z.infer<typeof loginSchema>;
@@ -36,7 +36,7 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
-      password: "",
+      // password: "",
     },
   });
 
@@ -69,7 +69,7 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl text-center">Bem-vindo</CardTitle>
           <CardDescription className="text-center">
-            Entre com suas credenciais para acessar o sistema
+            Entre com seu e-mail para acessar o sistema
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -93,7 +93,7 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
                   </FormItem>
                 )}
               />
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name="password"
                 render={({ field }) => (
@@ -110,7 +110,7 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              /> */}
               <Button
                 type="submit"
                 className="w-full bg-[#86A789] hover:bg-[#86A789]/90"

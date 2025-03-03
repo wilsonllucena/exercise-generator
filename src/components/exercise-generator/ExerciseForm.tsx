@@ -65,6 +65,8 @@ export const ExerciseForm = ({ onSubmit, isLoading }: ExerciseFormProps) => {
                 <SelectContent>
                   <SelectItem value="matematica">Matemática</SelectItem>
                   <SelectItem value="portugues">Português</SelectItem>
+                  <SelectItem value="ingles">Inglês</SelectItem>
+                  <SelectItem value="espanhol">Espanhol</SelectItem>
                   <SelectItem value="ciencias">Ciências</SelectItem>
                   <SelectItem value="historia">História</SelectItem>
                   <SelectItem value="geografia">Geografia</SelectItem>

@@ -22,7 +22,7 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route
+            {/* <Route
               path="/login"
               element={
                 !isAuthenticated ? (
@@ -31,28 +31,28 @@ const App = () => {
                   <Navigate to="/dashboard" replace />
                 )
               }
-            />
+            /> */}
             <Route
-              path="/dashboard"
+              path="/"
               element={
-                isAuthenticated ? (
+                // isAuthenticated ? (
                   <Dashboard onLogout={() => setIsAuthenticated(false)} />
-                ) : (
-                  <Navigate to="/login" replace />
-                )
+                // ) : (
+                //   <Navigate to="/login" replace />
+                // )
               }
             />
             <Route
               path="/exercise-generator"
               element={
-                isAuthenticated ? (
+                // isAuthenticated ? (
                   <ExerciseGenerator />
-                ) : (
-                  <Navigate to="/login" replace />
-                )
+                // ) : (
+                //   <Navigate to="/login" replace />
+                // )
               }
             />
-            <Route path="/" element={<Navigate to="/login" replace />} />
+            <Route path="/" element={<Navigate to="/" replace />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
