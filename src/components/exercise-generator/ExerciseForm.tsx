@@ -25,7 +25,7 @@ export const formSchema = z.object({
   questionCount: z.string().min(1, "Selecione a quantidade de questões"),
   grade: z.string().min(1, "Selecione a série"),
   questionType: z.string().min(1, "Selecione o tipo de questão"),
-  additionalInfo: z.string(),
+  additionalInfo: z.string().min(1, "Digite informações adicionais sobre o conteúdo"),
 });
 
 export type FormData = z.infer<typeof formSchema>;
