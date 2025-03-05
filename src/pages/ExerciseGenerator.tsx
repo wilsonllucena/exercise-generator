@@ -28,8 +28,9 @@ const ExerciseGenerator = () => {
 
 
       const { data: responseData } = response.data;
-      const exercise = generateExercise(responseData);
-      setGeneratedExercise(exercise);
+      console.log(responseData);
+      // const exercise = generateExercise(responseData);
+      setGeneratedExercise(responseData);
 
       toast({
         title: "Exercícios gerados com sucesso!",
